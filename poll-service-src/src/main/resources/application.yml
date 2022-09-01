@@ -1,0 +1,131 @@
+spring:
+  application:
+    name: poll-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/polls
+    username:
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
+    open-in-view: false
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog.xml
+  kafka:
+    bootstrap-servers:
+    producer:
+      enabled:
+      topic:
+
+redis:
+  enabled:
+  address:
+  password:
+  connectionTimeout:
+  prefix:
+  database:
+  sentinel:
+    enabled:
+    nodes:
+    master:
+
+
+swagger:
+  display:
+    module-name: poll-service
+    api-version: 1.0
+
+security:
+  oauth2:
+    client:
+      access-token-uri:
+      client-id:
+      scope:
+      user-authorization-uri:
+    resource:
+      id:
+      jwt:
+        key-value:
+      token-info-uri:
+      user-info-uri:
+
+rest:
+  security:
+    enabled: true
+    issuer-uri:
+
+server:
+  port: 8082
+
+feign:
+  my-admin-auth:
+    url: ${stand.base-url}
+    path:
+  my-user-service:
+    url:
+    path:
+
+my:
+  logging:
+    useJsonFormat:
+    logstash:
+      enabled:
+      address:
+  audit:
+    kafka-topic:
+    enabled:
+    provider:
+
+  stand:
+    base-url:
+  tech:
+    user:
+      auth:
+        clientId:
+        username:
+        password:
+
+cron:
+  expression:
+    poll:
+      publication: "0 * * * * *"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: [ 'configprops', 'env', 'health', 'info', 'advmetrics', 'loggers', 'threaddump', 'metrics' ]
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+      show-components: always
+    advmetrics:
+      enabled: true
+  info:
+    git:
+      mode: full
+  metrics:
+    enable:
+      http: true
+      jvm: true
+      logback: true
+      process: true
+      system: true
+    distribution:
+      percentiles-histogram:
+        all: true
+      percentiles:
+        all: 0, 0.5, 0.75, 0.95, 0.99, 1.0
+    tags:
+      application: ${spring.application.name}
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true

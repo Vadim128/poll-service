@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet author="vmargiev" id="2022-04-20-poll-change-status">
+        <dropColumn tableName="poll" columnName="status"/>
+        <dropColumn tableName="poll" columnName="publish_time"/>
+        <addColumn tableName="poll">
+            <column name="draft" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addDefaultValue tableName="poll" columnName="start_vote" defaultValueComputed="now()"/>
+        <renameColumn tableName="poll" oldColumnName="start_vote" newColumnName="start_time"/>
+        <renameColumn tableName="poll" oldColumnName="end_vote" newColumnName="end_time"/>
+    </changeSet>
+
+</databaseChangeLog>

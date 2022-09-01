@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.my.project</groupId>
+	<artifactId>poll-service</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>poll-service-api-contracts</module>
+		<module>poll-service-src</module>
+	</modules>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.2</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<maven.deploy.skip>false</maven.deploy.skip>
+		<java.version>11</java.version>
+		<org.springdoc.springdoc-openapi-ui.version>1.6.2</org.springdoc.springdoc-openapi-ui.version>
+		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+		<lombok.version>1.18.22</lombok.version>
+		<spring.security.oauth.version>2.6.1</spring.security.oauth.version>
+		<spring.cloud.feign.version>3.1.0</spring.cloud.feign.version>
+		<logstash-logback-encoder.version>6.6</logstash-logback-encoder.version>
+		<hibernate-types.version>2.12.1</hibernate-types.version>
+		<test-containers-postgres.version>1.15.1</test-containers-postgres.version>
+		<wiremock.version>2.27.2</wiremock.version>
+		<shedlock.version>4.33.0</shedlock.version>
+		<audit-starter.version>1.0-SNAPSHOT</audit-starter.version>
+		<redis-starter.version>1.0-SNAPSHOT</redis-starter.version>
+		<common-lib.version>1.0-SNAPSHOT</common-lib.version>
+		<kafka-starter.version>1.0-SNAPSHOT</kafka-starter.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-openfeign</artifactId>
+				<version>${spring.cloud.feign.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-ui</artifactId>
+				<version>${org.springdoc.springdoc-openapi-ui.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.hibernate</groupId>
+							<artifactId>hibernate-jpamodelgen</artifactId>
+							<version>${hibernate.version}</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.16</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok-mapstruct-binding</artifactId>
+							<version>0.2.0</version>
+						</path>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${org.mapstruct.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

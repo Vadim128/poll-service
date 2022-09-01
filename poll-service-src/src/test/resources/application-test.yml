@@ -1,0 +1,14 @@
+feign:
+  some-sample-service:
+    # The automatically generated (for now by wiremock) url
+    url: ${my.tests.mock.url}
+    path: /service-context-path
+
+my:
+  logging:
+    logstash:
+      enabled: false
+    useJsonFormat: false
+
+redis:
+  enabled: false

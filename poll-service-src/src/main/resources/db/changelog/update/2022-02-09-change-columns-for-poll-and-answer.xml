@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
+      http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
+
+    <changeSet author="vmargiev" id="2022-02-09-change-columns-for-poll-and-answer">
+        <dropColumn tableName="poll">
+            <column name="media_url"/>
+            <column name="background_type"/>
+            <column name="background_color_1"/>
+            <column name="background_color_2"/>
+        </dropColumn>
+        <renameColumn tableName="answer" oldColumnName="text" newColumnName="title"/>
+        <addColumn tableName="answer">
+            <column name="description" type="text"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

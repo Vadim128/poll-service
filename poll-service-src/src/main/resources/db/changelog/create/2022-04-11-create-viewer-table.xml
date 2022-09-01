@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet author="vmargiev" id="2022-04-11-create-viewer-table">
+        <createTable tableName="viewer">
+
+            <column defaultValueComputed="uuid_generate_v4()" name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="viewer_pkey"/>
+            </column>
+
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="viewed" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="poll_id" type="UUID">
+                <constraints nullable="true"
+                             foreignKeyName="poll_fkey"
+                             references="poll(id)"/>
+            </column>
+
+            <!--base entity columns-->
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="created_by" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="varchar(1024)"/>
+
+        </createTable>
+        <addUniqueConstraint tableName="viewer" columnNames="poll_id, user_id"/>
+    </changeSet>
+
+</databaseChangeLog>

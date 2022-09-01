@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet author="vmargiev" id="2022-04-28-alter-date-time-columns-type">
+        <modifyDataType tableName="poll" columnName="start_time" newDataType="TIMESTAMP WITH TIME ZONE"/>
+        <modifyDataType tableName="poll" columnName="end_time" newDataType="TIMESTAMP WITH TIME ZONE"/>
+        <modifyDataType tableName="poll" columnName="announcement_time" newDataType="TIMESTAMP WITH TIME ZONE"/>
+        <modifyDataType tableName="poll" columnName="created_at" newDataType="TIMESTAMP WITH TIME ZONE"/>
+        <modifyDataType tableName="poll" columnName="updated_at" newDataType="TIMESTAMP WITH TIME ZONE"/>
+
+        <modifyDataType tableName="viewer" columnName="created_at" newDataType="TIMESTAMP WITH TIME ZONE"/>
+        <modifyDataType tableName="viewer" columnName="updated_at" newDataType="TIMESTAMP WITH TIME ZONE"/>
+
+        <modifyDataType tableName="answer" columnName="created_at" newDataType="TIMESTAMP WITH TIME ZONE"/>
+        <modifyDataType tableName="answer" columnName="updated_at" newDataType="TIMESTAMP WITH TIME ZONE"/>
+
+        <modifyDataType tableName="vote" columnName="created_at" newDataType="TIMESTAMP WITH TIME ZONE"/>
+        <modifyDataType tableName="vote" columnName="updated_at" newDataType="TIMESTAMP WITH TIME ZONE"/>
+    </changeSet>
+
+</databaseChangeLog>

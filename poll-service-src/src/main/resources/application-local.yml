@@ -1,0 +1,8 @@
+my:
+  logging:
+    logstash:
+      enabled: false
+    useJsonFormat: false
+
+redis:
+  enabled: false

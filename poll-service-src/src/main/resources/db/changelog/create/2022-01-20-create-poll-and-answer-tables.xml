@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
+      http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
+
+    <changeSet author="vmargiev" id="2022-01-20-create-poll-tables">
+        <createTable tableName="poll">
+            <column defaultValueComputed="uuid_generate_v4()" name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="poll_pkey"/>
+            </column>
+            <column name="media_url" type="varchar(1024)"/>
+            <column name="start_vote" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="end_vote" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column defaultValueComputed="now()" name="publish_time" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="background_type" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="background_color_1" type="varchar(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="background_color_2" type="varchar(7)"/>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="created_by" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="varchar(1024)"/>
+        </createTable>
+
+        <createTable tableName="answer">
+            <column defaultValueComputed="uuid_generate_v4()" name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="answer_pkey"/>
+            </column>
+            <column name="text" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vote_counter" type="int" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="media_url" type="varchar(1024)"/>
+            <column name="image_url" type="varchar(1024)"/>
+            <column name="poll_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="poll_fkey"
+                             references="poll(id)"/>
+            </column>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="created_by" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="varchar(1024)"/>
+        </createTable>
+
+        <createIndex tableName="answer" indexName="answer_poll_id_idx">
+            <column name="poll_id"/>
+        </createIndex>
+
+        <createTable tableName="vote">
+            <column defaultValueComputed="uuid_generate_v4()" name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="vote_pkey"/>
+            </column>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="poll_id" type="uuid">
+                <constraints nullable="false"
+                             foreignKeyName="poll_fkey"
+                             references="poll(id)"/>
+            </column>
+            <column name="answer_id" type="uuid">
+                <constraints nullable="false"
+                             foreignKeyName="answer_fkey"
+                             references="answer(id)"/>
+            </column>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="created_by" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="varchar(1024)"/>
+        </createTable>
+
+        <createIndex tableName="vote" indexName="vote_poll_id_idx">
+            <column name="poll_id"/>
+        </createIndex>
+        <createIndex tableName="vote" indexName="vote_answer_id_idx">
+            <column name="answer_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>
